@@ -7,40 +7,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UploadService {
-  SERVER_URL: string = "https://file.io/";
+  backend: string = "http://127.0.0.1:5000";
+  SERVER_URL: string = "/image-upload";
   constructor(private httpClient: HttpClient) {}
 
-  public upload(formData) {
-    return this.httpClient.post<any>(this.SERVER_URL, formData, {
-      reportProgress: true,
-      observe: 'events'
-    });
+  public upload(formData, beam_size: number, model_name: string) {
+    return this.httpClient.post<any>(this.backend + this.SERVER_URL + "?beam_size="
+               + beam_size + "&model_name=" + model_name, formData);
   }
 
   public uploadFile(file, beam_size: number, model_name: string) {
     const formData = new FormData();
-    formData.append('file', file.data);
-    file.inProgress = true;
+    formData.append('file', file);
 
-    this.upload(formData).pipe(
-      map(event => {
-        switch (event.type) {
-          case HttpEventType.UploadProgress:
-            file.progress = Math.round(event.loaded * 100 / event.total);
-            break;
-          case HttpEventType.Response:
-            return event;
-        }
-      }),
-      catchError((error: HttpErrorResponse) => {
-        file.inProgress = false;
-        return of(`${file.data.name} upload failed.`);
-      })
-    )
+    this.upload(formData, beam_size, model_name)
     .subscribe((event: any) => {
-      if (typeof (event) === 'object') {
-        console.log(event.body);
-      }
+      console.log(event);
     });
   }
 }

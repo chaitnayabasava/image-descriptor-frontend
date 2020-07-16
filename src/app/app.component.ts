@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'image-descriptor';
+  ans = ["adsd", "sadasd", 'asdasdads', "asdsdasd", "asdadasd", "adsd", "sadasd", 'asdasdads', "asdsdasd", "asdadasd"];
 }

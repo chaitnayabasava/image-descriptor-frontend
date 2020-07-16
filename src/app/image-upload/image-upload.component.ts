@@ -3,17 +3,6 @@ import { FormControl, Validators } from '@angular/forms';
 
 import { UploadService } from '../upload/upload.service';
 
-interface FileData {
-  data,
-  inProgress,
-  progress
-}
-
-interface Model {
-  value: string;
-  viewValue: string;
-}
-
 @Component({
   selector: 'app-image-upload',
   templateUrl: './image-upload.component.html',
@@ -22,10 +11,10 @@ interface Model {
 export class ImageUploadComponent implements OnInit {
   imgUrl:string|ArrayBuffer = "";
   beam_size:number = 5;
-  file:FileData = {data:null, inProgress: false, progress: 0};
-  models: Model[] = [
-    {value: 'normal-lstm', viewValue: 'LSTM'},
-    {value: 'attention-lstm', viewValue: 'Attention'}
+  file = null;
+  models = [
+    {value: 'lstm', viewValue: 'LSTM'},
+    {value: 'attention', viewValue: 'Attention'}
   ];
 
   @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef;
@@ -42,27 +31,26 @@ export class ImageUploadComponent implements OnInit {
   ngOnInit(): void { }
 
   onClick() {
-    if(this.beamFormControl.errors != null || this.modelFormControl.errors != null) return;
-
-    const beam_size = this.beamFormControl.value;
-    const model_name = this.modelFormControl.value;
-
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
       const file = fileUpload.files[0];
       if(file) {
-        this.file = { data: file, inProgress: false, progress: 0};
+        this.file = file;
 
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = e => {
           this.imgUrl = reader.result;
         }
-
-        this.uploadService.uploadFile(this.file, beam_size, model_name);
       }
     };
     fileUpload.click();
+  }
+
+  analyse() {
+    const beam_size = this.beamFormControl.value;
+    const model_name = this.modelFormControl.value;
+    this.uploadService.uploadFile(this.file, beam_size, model_name);
   }
 
 }
