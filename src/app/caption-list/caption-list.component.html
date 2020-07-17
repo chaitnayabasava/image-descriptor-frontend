@@ -1,0 +1,23 @@
+<div>
+  <mat-card
+    class="predictions-card"
+  >
+    <mat-card-header>
+      <mat-card-title>Generated Captions of the selected image</mat-card-title>
+      <mat-card-subtitle *ngIf="!beamSize">will appear here</mat-card-subtitle>
+      <mat-card-subtitle *ngIf="beamSize">Beam Size: {{ beamSize }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-footer>
+      <mat-list *ngIf="sentences.length != 0">
+        <mat-divider></mat-divider>
+        <mat-list-item matRipple
+          *ngFor="let s of sentences;let i = index"
+        >
+          {{i+1}}. {{ s }}
+          <mat-divider *ngIf="i+1 != sentences.length"></mat-divider>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-footer>
+  </mat-card>
+</div>
