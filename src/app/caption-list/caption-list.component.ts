@@ -10,11 +10,13 @@ export class CaptionListComponent implements OnInit {
 
   sentences: Array<string> = []
   beamSize: number = null;
+  model: string = null;
 
   constructor(private uploadService: UploadService) { }
 
   ngOnInit(): void {
     this.uploadService.predEmitter.subscribe(data => {
+      this.model = data.model;
       this.beamSize = data.beamSize;
       this.sentences = data.sentences;
     });

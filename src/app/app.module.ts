@@ -11,6 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatRippleModule } from '@angular/material/core';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -33,7 +36,10 @@ import { CaptionListComponent } from './caption-list/caption-list.component';
     MatSelectModule,
     MatListModule,
     MatTooltipModule,
-    MatRippleModule
+    MatToolbarModule,
+    MatRippleModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
