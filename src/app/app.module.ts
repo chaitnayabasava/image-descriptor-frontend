@@ -1,22 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'
+import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatListModule } from '@angular/material/list';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatRippleModule } from '@angular/material/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
 import { ImageUploadComponent } from './image-upload/image-upload.component';
-import { ReactiveFormsModule } from '@angular/forms';
 import { CaptionListComponent } from './caption-list/caption-list.component';
 
 @NgModule({
@@ -30,16 +21,7 @@ import { CaptionListComponent } from './caption-list/caption-list.component';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSelectModule,
-    MatListModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    MatRippleModule,
-    MatSnackBarModule,
-    MatProgressSpinnerModule
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

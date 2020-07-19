@@ -6,8 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class UploadService {
-  backend: string = "http://127.0.0.1:5000";
-  api: string = "/image-upload";
+  // backend: string = "http://192.168.99.101:5000/";
+  backend: string = "http://localhost:5000/";
 
   predEmitter = new EventEmitter<{sentences: Array<string>, beamSize: number, model: string}>();
   loadEmitter = new EventEmitter<boolean>();
@@ -15,7 +15,7 @@ export class UploadService {
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {}
 
   public upload(formData, beam_size: number, model_name: string) {
-    return this.httpClient.post<any>(this.backend + this.api + "?beam_size="
+    return this.httpClient.post<any>(this.backend + "image-upload?beam_size="
                + beam_size + "&model_name=" + model_name, formData);
   }
 
@@ -30,11 +30,14 @@ export class UploadService {
       data.beamSize = beam_size;
       data.model = model_name;
       this.predEmitter.emit(data);
+      this.loadEmitter.emit(false)
     }, (error) => {
+      this.loadEmitter.emit(false)
+      console.log(error);
       const mssg = "Something went wrong! Please try later.";
       const errorSnackbar = this.snackBar.open(mssg, null, {duration: 5 * 1000});
       // const errorObservable = errorSnackbar.onAction();
       // errorObservable.subscribe(() => {});
-    }, () => this.loadEmitter.emit(false));
+    });
   }
 }
