@@ -6,8 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   providedIn: 'root'
 })
 export class UploadService {
-  // backend: string = "http://192.168.99.101:5000/";
-  backend: string = "http://localhost:5000/";
+  backend: string = "https://image-descriptor-flask.herokuapp.com/";
+  // backend: string = "http://localhost:5000/";
 
   predEmitter = new EventEmitter<{sentences: Array<string>, beamSize: number, model: string}>();
   loadEmitter = new EventEmitter<boolean>();
