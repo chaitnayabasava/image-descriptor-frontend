@@ -12,7 +12,7 @@ export class ImageUploadComponent implements OnInit {
   imgUrl:string|ArrayBuffer = "";
   beam_size:number = 5;
   file = null;
-  models = [
+  readonly models = [
     {value: 'lstm', viewValue: 'LSTM'},
     {value: 'attention', viewValue: 'Attention'}
   ];
@@ -30,7 +30,7 @@ export class ImageUploadComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onClick() {
+  uploadImage() {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
       const file = fileUpload.files[0];
@@ -47,10 +47,23 @@ export class ImageUploadComponent implements OnInit {
     fileUpload.click();
   }
 
-  analyse() {
+  private analyse() {
     const beam_size = this.beamFormControl.value;
     const model_name = this.modelFormControl.value;
     this.uploadService.uploadFile(this.file, beam_size, model_name);
   }
+
+  private throttle = (fn, delay: number) => {
+    let flag = true;
+    return () => {
+      if(flag) {
+        flag = false;
+        this.analyse.call(this);
+        setTimeout(() => flag = true, delay);
+      }
+    }
+  }
+
+  throttledAnalyse = this.throttle(this.analyse, 2500);
 
 }

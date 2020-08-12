@@ -14,12 +14,12 @@ export class UploadService {
 
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) {}
 
-  public upload(formData, beam_size: number, model_name: string) {
+  upload(formData, beam_size: number, model_name: string) {
     return this.httpClient.post<any>(this.backend + "image-upload?beam_size="
                + beam_size + "&model_name=" + model_name, formData);
   }
 
-  public uploadFile(file, beam_size: number, model_name: string) {
+  uploadFile(file, beam_size: number, model_name: string) {
     const formData = new FormData();
     formData.append('file', file);
 
@@ -39,5 +39,10 @@ export class UploadService {
       // const errorObservable = errorSnackbar.onAction();
       // errorObservable.subscribe(() => {});
     });
+  }
+
+  checkBackend() {
+    this.httpClient.get(this.backend)
+    .subscribe(data => console.log(data), error => console.log(error));
   }
 }

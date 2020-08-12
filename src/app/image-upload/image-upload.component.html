@@ -18,7 +18,7 @@
     <img
       mat-card-image
       [src]="imgUrl || 'https://via.placeholder.com/600x500.png?text=Select+Image'"
-      (click)="onClick()"
+      (click)="uploadImage()"
       style="cursor: pointer; margin-top: -5px;"
       alt="Your image"
     >
@@ -61,7 +61,7 @@
               class="btn-custom"
               color="primary"
               mat-raised-button
-              (click)="analyse()"
+              (click)="throttledAnalyse()"
               matTooltip="Get captions"
               [disabled]="modelFormControl.hasError('required') || beamFormControl.hasError('min') || beamFormControl.hasError('max') || file === null"
             >

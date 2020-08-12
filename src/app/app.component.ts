@@ -10,7 +10,9 @@ export class AppComponent implements OnInit{
   title = 'image-descriptor';
   isLoading: boolean = false;
 
-  constructor(private uploadService: UploadService) {}
+  constructor(private uploadService: UploadService) {
+    this.uploadService.checkBackend();
+  }
 
   ngOnInit() {
     this.uploadService.loadEmitter.subscribe(loading => this.isLoading = loading);
